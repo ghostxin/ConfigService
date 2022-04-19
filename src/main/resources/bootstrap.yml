@@ -4,19 +4,27 @@ server:
 spring:
   application:
       name: config-service
+  profiles:
+    # 配置文件分支
+    active: ${SPRING_PROFILES_ACTIVE:master}
   cloud:
     inetutils:
       timeout-seconds: 60
     config:
       server:
         git:
+          # 配置仓库路径
           search-paths: /config
-          uri: git@github.com:ghostxin/ConfigStorage.git
-          username: config.reader@dsp.com
-          password: config.reader
+          # 配置git仓库地址
+          uri: https://github.com/ghostxin/ConfigStorage.git
+          # 访问git仓库的用户名
+          username: admin
+          # 访问git仓库的密码
+          password: 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
     bus:
       trace:
-        enabled: true     # 开启cloud bus的跟踪
+        # 开启cloud bus的跟踪
+        enabled: true
 
 eureka:
   instance:
@@ -27,10 +35,13 @@ eureka:
 
 security:
   basic:
-    enabled: true     #开启基于HTTP basic的认证
+    #开启基于HTTP basic的认证
+    enabled: true
   user:
-    name: user        #配置登录的账号是user
-    password: ${CONFIG_SERVICE_PASSWORD:111111}     #配置登录的密码默认是111111
+    #配置登录的账号是user
+    name: user
+    #配置登录的密码默认是111111
+    password: ${CONFIG_SERVICE_PASSWORD:111111}
 
 logging:
   level:
